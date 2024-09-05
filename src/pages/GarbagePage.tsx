@@ -3,7 +3,7 @@ import TodoDescription from "../components/Todo/Description";
 
 const GarbagePage = () => {
   return (
-    <div>
+    <>
       <TodoDescription text={"버려진 TODO"} size={2} />
 
       <TodoCard
@@ -14,7 +14,7 @@ const GarbagePage = () => {
         content={<TodoCard.Content text="TODO CONTENT" />}
         interactionIcon={<TodoCard.InteractionIcon type="rollback" />}
       />
-    </div>
+    </>
   );
 };
 

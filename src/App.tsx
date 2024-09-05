@@ -1,4 +1,3 @@
-import React from "react";
 import Provider from "./components/Provider";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./router";
