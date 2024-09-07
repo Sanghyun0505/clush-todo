@@ -1,5 +1,5 @@
 import list from "../../../assets/icons/list.svg";
-import garbage from "../../../assets/icons/garbage.svg";
+import trash from "../../../assets/icons/trash.svg";
 
 export const MENU_ITEMS = [
   {
@@ -11,7 +11,7 @@ export const MENU_ITEMS = [
   {
     id: 1,
     title: "휴지통",
-    icon: garbage,
-    link: "garbage",
+    icon: trash,
+    link: "trash",
   },
 ];

@@ -4,18 +4,22 @@ import { Flex } from "../../styles/flex";
 export const HeaderWrap = styled.header`
   width: 100%;
   height: 60px;
+
+  position: sticky;
+  top: 0;
+
+  background-color: #fcfcfc;
   padding: 0 20px;
-  position: relative;
   ${Flex({ alignItems: "center", justifyContent: "space-between" })}
 `;
 
-export const PageTitle = styled.p<{ isActiveTransition?: boolean }>`
+export const PageTitle = styled.p<{ $isActiveTransition?: boolean }>`
   font-size: 21px;
   font-family: "Pretendard-Bold" !important;
   cursor: pointer;
 
-  ${({ isActiveTransition }) =>
-    isActiveTransition &&
+  ${({ $isActiveTransition }) =>
+    $isActiveTransition &&
     css`
       transition: 0.15s ease-in-out;
       &:active {
@@ -27,4 +31,9 @@ export const PageTitle = styled.p<{ isActiveTransition?: boolean }>`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+`;
+
+export const EmptyBox = styled.div`
+  width: 20px;
+  height: 20px;
 `;

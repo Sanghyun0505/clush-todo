@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import MainPage from "../pages/MainPage";
-import GarbagePage from "../pages/GarbagePage";
+import TrashPage from "../pages/TrashPage";
 
 const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route path="/garbage" element={<GarbagePage />} />
+      <Route path="/trash" element={<TrashPage />} />
     </Routes>
   );
 };

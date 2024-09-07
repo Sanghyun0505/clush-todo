@@ -4,22 +4,26 @@ import check_box from "../../../assets/icons/check_box.svg";
 import uncheck_box from "../../../assets/icons/uncheck_box.svg";
 import cancel from "../../../assets/icons/cancel.svg";
 import rollback from "../../../assets/icons/rollback.svg";
-import garbage from "../../../assets/icons/garbage.svg";
+import trash from "../../../assets/icons/trash.svg";
 import Icon from "../../Icon";
+import { CSSProperties, RuleSet } from "styled-components";
 
 interface Props {
   checkbox?: ReactNode;
   content: ReactNode;
   interactionIcon?: ReactNode;
+
+  customStyle?: RuleSet;
 }
 
 const TodoCard = ({
   checkbox = null,
   content,
   interactionIcon = null,
+  customStyle,
 }: Props) => {
   return (
-    <S.TodoCardWrap>
+    <S.TodoCardWrap $customStyle={customStyle!}>
       <div>
         {checkbox}
         {content}
@@ -50,8 +54,29 @@ const Checkbox = ({
   );
 };
 
-const Content = ({ text }: { text: string }) => {
-  return <S.Content>{text}</S.Content>;
+const Content = ({
+  text,
+  isComplete = false,
+  cursor = "auto",
+  onClick,
+}: {
+  text: string;
+  isComplete?: boolean;
+  cursor?: CSSProperties["cursor"];
+  onClick?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
+}) => {
+  const textLength = text.length;
+
+  return (
+    <S.Content
+      $textLength={textLength}
+      $isComplete={isComplete}
+      $cursor={cursor}
+      onClick={onClick}
+    >
+      {textLength > 0 ? text : "내용없음"}
+    </S.Content>
+  );
 };
 
 const FormInput = ({
@@ -71,17 +96,17 @@ const InteractionIcon = ({
   type,
   onClick,
 }: {
-  type: "delete" | "rollback" | "garbage";
+  type: "remove" | "rollback" | "trash";
   onClick?: (e: React.MouseEvent<HTMLImageElement>) => void;
 }) => {
-  const switchIcon = (type: "delete" | "rollback" | "garbage") => {
+  const switchIcon = (type: "remove" | "rollback" | "trash") => {
     switch (type) {
-      case "delete":
+      case "remove":
         return cancel;
       case "rollback":
         return rollback;
-      case "garbage":
-        return garbage;
+      case "trash":
+        return trash;
       default:
         return "";
     }

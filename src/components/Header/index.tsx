@@ -6,7 +6,9 @@ import * as S from "./style";
 import { useRouter } from "../../hooks/useRouter";
 import Icon from "../Icon";
 import Menu from "../Modal/Menu";
-import Edit from "../Modal/Edit";
+import ShowMore from "../Modal/ShowMore";
+import { useAtomValue } from "jotai";
+import { InTrashTodoAtom } from "../../store/Todo/todo.store";
 
 const Header = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
@@ -30,7 +32,7 @@ const Main = () => {
       </figure>
 
       <S.PageTitle
-        isActiveTransition={true}
+        $isActiveTransition={true}
         onClick={() => (window.location.href = "/")}
       >
         CLUSH TODO
@@ -43,9 +45,10 @@ const Main = () => {
   );
 };
 
-const Garbage = () => {
+const Trash = () => {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
+  const trashTodo = useAtomValue(InTrashTodoAtom);
 
   return (
     <S.HeaderWrap>
@@ -61,21 +64,25 @@ const Garbage = () => {
       <S.PageTitle>휴지통</S.PageTitle>
 
       <figure>
-        <Icon
-          src={edit_dots}
-          width={"20px"}
-          height={"20px"}
-          onClick={() => setIsActive((prev) => !prev)}
-          alt="edit_dots"
-        />
+        {trashTodo.length > 0 ? (
+          <Icon
+            src={edit_dots}
+            width={"20px"}
+            height={"20px"}
+            onClick={() => setIsActive((prev) => !prev)}
+            alt="edit_dots"
+          />
+        ) : (
+          <S.EmptyBox />
+        )}
       </figure>
 
-      {isActive && <Edit setIsActive={setIsActive} />}
+      {isActive && <ShowMore setIsActive={setIsActive} />}
     </S.HeaderWrap>
   );
 };
 
 Header.Main = Main;
-Header.Garbage = Garbage;
+Header.Trash = Trash;
 
 export default Header;

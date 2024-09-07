@@ -1,14 +1,17 @@
-import Provider from "./components/Provider";
+import ClushTodoProvider from "./components/Provider";
 import { BrowserRouter } from "react-router-dom";
+import { Provider as JotaiProvider } from "jotai";
 import Router from "./router";
 import "./styles/font.css";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Provider>
-        <Router />
-      </Provider>
+      <JotaiProvider>
+        <ClushTodoProvider>
+          <Router />
+        </ClushTodoProvider>
+      </JotaiProvider>
     </BrowserRouter>
   );
 };

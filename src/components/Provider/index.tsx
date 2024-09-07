@@ -1,30 +1,29 @@
 import { type ReactNode } from "react";
-import { Provider as JotaiProvider } from "jotai";
 import { GlobalStyles } from "../../styles/GlobalStyles";
 import styled from "styled-components";
 import Header from "../Header";
 import { useRouter } from "../../hooks/useRouter";
 
-const Provider = ({ children }: { children: ReactNode }) => {
+const ClushTodoProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   return (
-    <JotaiProvider>
+    <>
       <GlobalStyles />
 
       <Container>
         <Header>
           {router.pathname === "/" && <Header.Main />}
-          {router.pathname === "/garbage" && <Header.Garbage />}
+          {router.pathname === "/trash" && <Header.Trash />}
         </Header>
 
         <Wrapper>{children}</Wrapper>
       </Container>
-    </JotaiProvider>
+    </>
   );
 };
 
-export default Provider;
+export default ClushTodoProvider;
 
 const Container = styled.div`
   width: 500px;
@@ -38,9 +37,9 @@ const Container = styled.div`
   background-color: #fcfcfc;
 
   overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  scrollbar-width: none;
+
+  position: relative;
 `;
 
 const Wrapper = styled.div`

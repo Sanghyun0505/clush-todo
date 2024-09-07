@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled, { CSSProperties, RuleSet } from "styled-components";
 import { Flex } from "../../../styles/flex";
 
-export const TodoCardWrap = styled.article`
+export const TodoCardWrap = styled.article<{ $customStyle: RuleSet }>`
   width: 100%;
-  height: 70px;
+  min-height: 70px;
   border-radius: 15px;
   background-color: #f4f4f4;
 
@@ -14,14 +14,24 @@ export const TodoCardWrap = styled.article`
   div {
     ${Flex({ alignItems: "center", columnGap: "15px" })}
   }
+
+  ${({ $customStyle }) => $customStyle}
 `;
 
-export const Content = styled.p`
+export const Content = styled.p<{
+  $textLength: number;
+  $isComplete: boolean;
+  $cursor: CSSProperties["cursor"];
+}>`
   font-size: 20px;
-  width: 320px;
+  max-width: 320px;
   font-family: "Pretendard-Medium" !important;
 
-  /* text-decoration: line-through; */
+  color: ${({ $textLength, $isComplete }) =>
+    $textLength > 0 && !$isComplete ? "#000" : "#d1d1d1"};
+  text-decoration: ${({ $isComplete }) => $isComplete && "line-through"};
+
+  cursor: ${({ $cursor }) => $cursor};
 `;
 
 export const Form = styled.form`
