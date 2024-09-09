@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { Flex } from "../../styles/flex";
 import { useUpdateTodoLists } from "../../hooks/useUpdateTodoLists";
+import { useSortTodoListByDate } from "../../hooks/useSortTodoListByDate";
 
 const TrashPage = () => {
   const [trashTodo, setTrashTodo] = useAtom(InTrashTodoAtom);
@@ -19,6 +20,8 @@ const TrashPage = () => {
   const setProgressTodo = useSetAtom(InProgressTodoAtom);
 
   const [isTodoRemove, setIsTodoRemove] = useAtom(IsTodoRemoveAtom);
+
+  const sortTodoListByDate = useSortTodoListByDate();
 
   // 휴지통에 있는 todo를 개별 삭제, 복원하는 함수
   const handleTrashTodoAction = (item: Todo) => {
@@ -28,7 +31,9 @@ const TrashPage = () => {
 
     if (answer) {
       if (!isTodoRemove) {
+        // 복원이라면..
         if (item.isComplete) {
+          // 복원하는 Todo가 진행, 완료 중인 상태에 따라 각 맞는 리스트에 다시 포함
           setCompleteTodo((prev) => [...prev, item]);
         } else {
           setProgressTodo((prev) => [...prev, item]);
@@ -52,21 +57,18 @@ const TrashPage = () => {
       <TodoDescription text={"버려진 TODO"} size={trashTodo.length} />
 
       {trashTodo.length > 0 ? (
-        trashTodo
-          .slice()
-          .reverse()
-          .map((item) => (
-            <TodoCard
-              key={item.id}
-              content={<TodoCard.Content text={item.content} />}
-              interactionIcon={
-                <TodoCard.InteractionIcon
-                  type={isTodoRemove ? "remove" : "rollback"}
-                  onClick={() => handleTrashTodoAction(item)}
-                />
-              }
-            />
-          ))
+        sortTodoListByDate(trashTodo).map((item) => (
+          <TodoCard
+            key={item.id}
+            content={<TodoCard.Content text={item.content} />}
+            interactionIcon={
+              <TodoCard.InteractionIcon
+                type={isTodoRemove ? "remove" : "rollback"}
+                onClick={() => handleTrashTodoAction(item)}
+              />
+            }
+          />
+        ))
       ) : (
         <ListEmpty>
           <p>TODO가 없습니다</p>

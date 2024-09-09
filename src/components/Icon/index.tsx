@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import styled, { type CSSProperties } from "styled-components";
 
-interface Props extends ComponentProps<"img"> {
+export interface Props extends ComponentProps<"img"> {
   width?: CSSProperties["width"];
   height?: CSSProperties["height"];
 }

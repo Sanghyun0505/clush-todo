@@ -12,6 +12,7 @@ import {
 } from "../../store/Todo/todo.store";
 import { useUpdateTodoLists } from "../../hooks/useUpdateTodoLists";
 import Modify from "../../components/Modal/Modify";
+import { useSortTodoListByDate } from "../../hooks/useSortTodoListByDate";
 
 const MainPage = () => {
   const [todoInputList, setTodoInputList] = useState<Todo[]>([]);
@@ -21,6 +22,8 @@ const MainPage = () => {
   const setTrashTodo = useSetAtom(InTrashTodoAtom);
 
   const [todoToBeModify, setTodoToBeModify] = useState<Todo | null>(null);
+
+  const sortTodoListByDate = useSortTodoListByDate();
 
   // Todo Input 추가해주는 함수
   const handleCreateInputItem = () => {
@@ -56,12 +59,14 @@ const MainPage = () => {
 
   // Todo checkbox switch 로직
   const handleSwitchTodoCheckbox = (todo: Todo) => {
-    const removeFromList = todo.isComplete ? setCompleteTodo : setProgressTodo;
-    const addToList = todo.isComplete ? setProgressTodo : setCompleteTodo;
+    const removeFromTodoList = todo.isComplete
+      ? setCompleteTodo
+      : setProgressTodo;
+    const addToTodoList = todo.isComplete ? setProgressTodo : setCompleteTodo;
 
-    removeFromList((prev) => prev.filter((item) => item.id !== todo.id));
+    removeFromTodoList((prev) => prev.filter((item) => item.id !== todo.id));
 
-    addToList((prev) => [
+    addToTodoList((prev) => [
       ...prev,
       {
         ...todo,
@@ -70,7 +75,8 @@ const MainPage = () => {
     ]);
   };
 
-  // todo list들의 상태를 update하는 라이프사이클, complete, trash, progress 상태를 관리함.
+  // todo list들의 상태를 update하는 라이프사이클
+  // complete, trash, progress 상태를 관리함.
   useUpdateTodoLists();
 
   return (
@@ -85,60 +91,52 @@ const MainPage = () => {
           setTodoInputList={setTodoInputList}
         />
 
-        {progressTodo
-          .slice()
-          .reverse()
-          .map((item) => (
-            <TodoCard
-              key={item.id}
-              checkbox={
-                <TodoCard.Checkbox
-                  onClick={() => handleSwitchTodoCheckbox(item)}
-                />
-              }
-              content={
-                <TodoCard.Content
-                  text={item.content}
-                  cursor="pointer"
-                  onClick={() => setTodoToBeModify(item)}
-                />
-              }
-              interactionIcon={
-                <TodoCard.InteractionIcon
-                  onClick={() => handleMoveTodoToTrash(item, "InProgress")}
-                  type="trash"
-                />
-              }
-            />
-          ))}
+        {sortTodoListByDate(progressTodo).map((item) => (
+          <TodoCard
+            key={item.id}
+            checkbox={
+              <TodoCard.Checkbox
+                onClick={() => handleSwitchTodoCheckbox(item)}
+              />
+            }
+            content={
+              <TodoCard.Content
+                text={item.content}
+                cursor="pointer"
+                onClick={() => setTodoToBeModify(item)}
+              />
+            }
+            interactionIcon={
+              <TodoCard.InteractionIcon
+                onClick={() => handleMoveTodoToTrash(item, "InProgress")}
+                type="trash"
+              />
+            }
+          />
+        ))}
       </S.Wrap>
 
       <S.Wrap>
         <TodoDescription text={"완료된 TODO"} size={completeTodo.length} />
 
-        {completeTodo
-          .slice()
-          .reverse()
-          .map((item) => (
-            <TodoCard
-              key={item.id}
-              checkbox={
-                <TodoCard.Checkbox
-                  type="check"
-                  onClick={() => handleSwitchTodoCheckbox(item)}
-                />
-              }
-              content={
-                <TodoCard.Content text={item.content} isComplete={true} />
-              }
-              interactionIcon={
-                <TodoCard.InteractionIcon
-                  onClick={() => handleMoveTodoToTrash(item, "InComplete")}
-                  type="trash"
-                />
-              }
-            />
-          ))}
+        {sortTodoListByDate(completeTodo).map((item) => (
+          <TodoCard
+            key={item.id}
+            checkbox={
+              <TodoCard.Checkbox
+                type="check"
+                onClick={() => handleSwitchTodoCheckbox(item)}
+              />
+            }
+            content={<TodoCard.Content text={item.content} isComplete={true} />}
+            interactionIcon={
+              <TodoCard.InteractionIcon
+                onClick={() => handleMoveTodoToTrash(item, "InComplete")}
+                type="trash"
+              />
+            }
+          />
+        ))}
       </S.Wrap>
 
       {todoToBeModify && (

@@ -19,9 +19,7 @@ const Modify = ({
 
   const [content, setContent] = useState(todoToBeModify.content);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleTodoModify = () => {
     const answer = window.confirm("이 Todo를 수정하시겠습니까?");
 
     if (answer) {
@@ -43,11 +41,15 @@ const Modify = ({
           content={
             <TodoCard.FormInput
               value={content}
-              onSubmit={(e) =>
-                handleSubmit(e as React.FormEvent<HTMLFormElement>)
-              }
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleTodoModify();
+              }}
               onChange={(e) => setContent(e.target.value)}
             />
+          }
+          interactionIcon={
+            <TodoCard.InteractionIcon type="check" onClick={handleTodoModify} />
           }
           customStyle={TodoCardStyle}
         />
@@ -66,13 +68,11 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-`;
 
-const Wrap = styled.div`
-  width: 100%;
-  height: 100%;
   padding: 50px 30px;
 `;
+
+const Wrap = styled.div``;
 
 const slideIn = keyframes`
   from {

@@ -5,14 +5,14 @@ import uncheck_box from "../../../assets/icons/uncheck_box.svg";
 import cancel from "../../../assets/icons/cancel.svg";
 import rollback from "../../../assets/icons/rollback.svg";
 import trash from "../../../assets/icons/trash.svg";
-import Icon from "../../Icon";
+import check from "../../../assets/icons/check.svg";
+import Icon, { Props as IconProps } from "../../Icon";
 import { CSSProperties, RuleSet } from "styled-components";
 
 interface Props {
   checkbox?: ReactNode;
   content: ReactNode;
   interactionIcon?: ReactNode;
-
   customStyle?: RuleSet;
 }
 
@@ -38,18 +38,17 @@ const TodoCard = ({
 
 const Checkbox = ({
   type = "uncheck",
-  onClick,
+  ...props
 }: {
   type?: "check" | "uncheck";
-  onClick?: (e: React.MouseEvent<HTMLImageElement>) => void;
-}) => {
+} & IconProps) => {
   return (
     <Icon
       src={type === "uncheck" ? uncheck_box : check_box}
       width={"24px"}
       height={"24px"}
-      onClick={onClick}
       alt="checkbox_icon"
+      {...props}
     />
   );
 };
@@ -58,13 +57,12 @@ const Content = ({
   text,
   isComplete = false,
   cursor = "auto",
-  onClick,
+  ...props
 }: {
   text: string;
   isComplete?: boolean;
   cursor?: CSSProperties["cursor"];
-  onClick?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
-}) => {
+} & ComponentProps<"p">) => {
   const textLength = text.length;
 
   return (
@@ -72,7 +70,7 @@ const Content = ({
       $textLength={textLength}
       $isComplete={isComplete}
       $cursor={cursor}
-      onClick={onClick}
+      {...props}
     >
       {textLength > 0 ? text : "내용없음"}
     </S.Content>
@@ -87,19 +85,18 @@ const FormInput = ({
 } & ComponentProps<"input">) => {
   return (
     <S.Form onSubmit={onSubmit}>
-      <S.Input placeholder="내용없음" {...props} autoFocus />
+      <S.Input placeholder="내용없음" autoFocus {...props} />
     </S.Form>
   );
 };
 
 const InteractionIcon = ({
   type,
-  onClick,
+  ...props
 }: {
-  type: "remove" | "rollback" | "trash";
-  onClick?: (e: React.MouseEvent<HTMLImageElement>) => void;
-}) => {
-  const switchIcon = (type: "remove" | "rollback" | "trash") => {
+  type: "remove" | "rollback" | "trash" | "check";
+} & IconProps) => {
+  const switchIcon = (type: "remove" | "rollback" | "trash" | "check") => {
     switch (type) {
       case "remove":
         return cancel;
@@ -107,14 +104,14 @@ const InteractionIcon = ({
         return rollback;
       case "trash":
         return trash;
+      case "check":
+        return check;
       default:
         return "";
     }
   };
 
-  return (
-    <Icon src={switchIcon(type)} onClick={onClick} alt="interaction_icon" />
-  );
+  return <Icon src={switchIcon(type)} alt="interaction_icon" {...props} />;
 };
 
 TodoCard.Checkbox = Checkbox;
