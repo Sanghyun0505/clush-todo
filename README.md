@@ -8,7 +8,7 @@ todo 데이터들은 로컬 스토리지에 저장하여 새로고침 시, 데�
 
 기술스택: React, TypeScript, Jotai, React Router, styled-components
 
-디자인은 `https://www.figma.com/design/0gdqznH82b3I57f3OjDW4T/clush-todo?node-id=0-1&t=1mbgqDgK1baSjK0b-1`에서 보실 수 있습니다.
+디자인은 <https://www.figma.com/design/0gdqznH82b3I57f3OjDW4T/clush-todo?node-id=0-1&t=1mbgqDgK1baSjK0b-1>에서 보실 수 있습니다.
 
 ### 기능설명
 
@@ -41,17 +41,21 @@ todo들을 등록한 순서대로 조회가 가능합니다.
     <img src="./src/assets/image/개별_삭제_및_비우기.png" width="300px" height="200px" alt="완료"/>
 </div>
 
-삭제한 진행, 완료 todo들을 휴지통에서 다시 조회가 가능합니다. 해당 기능은 todo를 잘못 삭제할 경우를 방지하기 위해 개발하였습니다. 휴지통에선 todo들을 전체, 개별삭제가 가능하며 비우기 기능을 제공합니다.
+삭제한 진행, 완료 todo들을 휴지통에서 다시 조회가 가능합니다. 해당 기능은 todo를 잘못 삭제할 경우를 방지하기 위해 개발하였습니다. 휴지통에선 todo들을 개별삭제, 복원이 가능하며 비우기 기능을 제공합니다.
 
 **todo 수정**
 
 <img src="./src/assets/image/수정.png" width="300px" height="200px" alt="완료"/>
 
-진행중인 TODO에서 todo를 수정할 수 있습니다.
+진행중인 TODO에서 내용을 클릭하여 todo를 수정할 수 있습니다.
+`enter`나 왼쪽 체크 아이콘을 클릭하면 됩니다.
+
+**추가로..**
+모달 창 같은 경우는 영역 밖을 누르거나 `esc`를 눌러 닫을 수 있도록 구현하였습니다.
 
 ## 2. 소스 빌드 및 실행 방법 메뉴얼
 
-1. `https://github.com/Sanghyun0505/clush-todo.git`로 프로젝트를 `git clone`합니다.
+1. <https://github.com/Sanghyun0505/clush-todo.git>로 프로젝트를 `git clone`합니다.
 2. IDE를 실행해 터미널에서 `npm install`로 node_modules를 받아 실행에 필요한 패키지를 다운로드 받습니다.
 3. `npm start`로 프로젝트를 실행합니다.
 
@@ -59,7 +63,7 @@ todo들을 등록한 순서대로 조회가 가능합니다.
 
 저는 `/src/components/Todo/Card`에 위치한 `Card`컴포넌트를 구현하여 주력으로 사용하였습니다. CLUSH TODO에서 todo 조회, 수정, 등록 기능에 모두 공통적으로 필요하기에 하나의 컴포넌트로 구현하여 재사용성을 높히고자 사용하게 되었습니다.
 
-또한, Compound Component 패턴을 적용하여 해당 기능들의 변경사항에 유동적으로 대응하도록 하였습니다. 그래서 아래 사진을 보시면 여러 형태로 커스텀해서 사용하고 있다는 것을 확인할 수 있습니다.
+또한, Compound Component 패턴을 적용하여 해당 기능들의 변경사항에 유동적으로 대응하도록 하였습니다. 그래서 아래 사진을 보시면 여러 형태로 커스텀해서 사용되고 있는 것을 확인할 수 있습니다.
 
 <div style="display:flex, flex-direction: column">
     <div style="display:flex">
@@ -76,4 +80,6 @@ todo들을 등록한 순서대로 조회가 가능합니다.
     </div>
 </div>
 
-감사합니다.
+코드링크: <https://github.com/Sanghyun0505/clush-todo/blob/main/src/components/Todo/Card/index.tsx>
+
+감사합니다:)
