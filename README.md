@@ -56,7 +56,7 @@ todo들을 등록한 순서대로 조회가 가능합니다.
 ## 2. 소스 빌드 및 실행 방법 메뉴얼
 
 1. <https://github.com/Sanghyun0505/clush-todo.git>로 프로젝트를 `git clone`합니다.
-2. IDE를 실행해 터미널에서 `npm install`로 node_modules를 받아 실행에 필요한 패키지를 다운로드 받습니다.
+2. IDE를 실행해 터미널에서 `npm install`로 node_modules를 받아 해당 프로젝트에 필요한 패키지들을 다운로드 받습니다.
 3. `npm start`로 프로젝트를 실행합니다.
 
 ## 3. 주력으로 사용한 컴포넌트에 대한 설명 및 사용 이유
