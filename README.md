@@ -8,6 +8,8 @@ todo 데이터들은 로컬 스토리지에 저장하여 새로고침 시, 데�
 
 기술스택: React, TypeScript, Jotai, React Router, styled-components
 
+디자인은 `https://www.figma.com/design/0gdqznH82b3I57f3OjDW4T/clush-todo?node-id=0-1&t=1mbgqDgK1baSjK0b-1`에서 보실 수 있습니다.
+
 ### 기능설명
 
 **할일(todo) 생성**
