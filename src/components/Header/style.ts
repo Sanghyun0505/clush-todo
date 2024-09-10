@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Flex } from "../../styles/flex";
+import { CSSProperties } from "react";
 
 export const HeaderWrap = styled.header`
   width: 100%;
@@ -32,6 +33,12 @@ export const PageTitle = styled.p<{ $isActiveTransition?: boolean }>`
   -ms-user-select: none;
   user-select: none;
 `;
+
+export const IconStyle: CSSProperties = {
+  fontSize: "23px",
+  cursor: "pointer",
+  outline: "none",
+};
 
 export const EmptyBox = styled.div`
   width: 20px;

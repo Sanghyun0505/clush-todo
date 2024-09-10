@@ -27,12 +27,7 @@ const Menu = ({ setIsActive }: Props) => {
         <S.Ul>
           {MENU_ITEMS.map((item) => (
             <S.Li key={item.id} onClick={() => handlePageMove(item.link)}>
-              <Icon
-                src={item.icon}
-                width={"28px"}
-                height={"28px"}
-                alt="menu_icon"
-              />
+              <item.icon style={S.IconStyle} />
               <p>{item.title}</p>
             </S.Li>
           ))}

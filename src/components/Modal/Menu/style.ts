@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Flex } from "../../../styles/flex";
+import { CSSProperties } from "react";
 
 export const Container = styled.div`
   width: 500px;
@@ -59,3 +60,9 @@ export const Li = styled.li`
     background-color: #ddd;
   }
 `;
+
+export const IconStyle: CSSProperties = {
+  fontSize: "22px",
+  cursor: "pointer",
+  color: "#5D5D5D",
+};

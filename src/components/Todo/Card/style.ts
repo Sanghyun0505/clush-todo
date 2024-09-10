@@ -18,6 +18,11 @@ export const TodoCardWrap = styled.article<{ $customStyle: RuleSet }>`
   ${({ $customStyle }) => $customStyle}
 `;
 
+export const CheckBoxStyle: CSSProperties = {
+  fontSize: "24px",
+  cursor: "pointer",
+};
+
 export const Content = styled.p<{
   $textLength: number;
   $isComplete: boolean;
@@ -52,3 +57,9 @@ export const Input = styled.input`
     color: #d1d1d1;
   }
 `;
+
+export const InteractionIconStyle: CSSProperties = {
+  cursor: "pointer",
+  fontSize: "22px",
+  color: "#5D5D5D",
+};

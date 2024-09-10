@@ -9,6 +9,7 @@ import Menu from "../Modal/Menu";
 import ShowMore from "../Modal/ShowMore";
 import { useAtomValue } from "jotai";
 import { InTrashTodoAtom } from "../../store/Todo/todo.store";
+import { MenuOutlined, MoreOutlined } from "@ant-design/icons";
 
 const Header = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
@@ -22,12 +23,9 @@ const Main = () => {
   return (
     <S.HeaderWrap>
       <figure>
-        <Icon
-          src={see_more}
-          width={"26px"}
-          height={"26px"}
+        <MenuOutlined
+          style={{ fontSize: "21px", outline: "none", cursor: "pointer" }}
           onClick={() => setIsActive((prev) => !prev)}
-          alt="see_more"
         />
       </figure>
 
@@ -65,12 +63,9 @@ const Trash = () => {
 
       <figure>
         {trashTodo.length > 0 ? (
-          <Icon
-            src={edit_dots}
-            width={"20px"}
-            height={"20px"}
+          <MoreOutlined
+            style={S.IconStyle}
             onClick={() => setIsActive((prev) => !prev)}
-            alt="edit_dots"
           />
         ) : (
           <S.EmptyBox />

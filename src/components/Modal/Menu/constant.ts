@@ -1,17 +1,16 @@
-import list from "../../../assets/icons/list.svg";
-import trash from "../../../assets/icons/trash.svg";
+import { DeleteFilled, UnorderedListOutlined } from "@ant-design/icons";
 
 export const MENU_ITEMS = [
   {
     id: 0,
     title: "모든 할일",
-    icon: list,
+    icon: UnorderedListOutlined,
     link: "",
   },
   {
     id: 1,
     title: "휴지통",
-    icon: trash,
+    icon: DeleteFilled,
     link: "trash",
   },
 ];

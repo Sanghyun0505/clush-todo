@@ -1,13 +1,15 @@
 import type { ComponentProps, ReactNode } from "react";
 import * as S from "./style";
-import check_box from "../../../assets/icons/check_box.svg";
-import uncheck_box from "../../../assets/icons/uncheck_box.svg";
-import cancel from "../../../assets/icons/cancel.svg";
-import rollback from "../../../assets/icons/rollback.svg";
-import trash from "../../../assets/icons/trash.svg";
-import check from "../../../assets/icons/check.svg";
-import Icon, { Props as IconProps } from "../../Icon";
 import { CSSProperties, RuleSet } from "styled-components";
+import {
+  CheckOutlined,
+  CheckSquareFilled,
+  CheckSquareOutlined,
+  CloseOutlined,
+  DeleteFilled,
+  RollbackOutlined,
+} from "@ant-design/icons";
+import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 
 interface Props {
   checkbox?: ReactNode;
@@ -41,15 +43,16 @@ const Checkbox = ({
   ...props
 }: {
   type?: "check" | "uncheck";
-} & IconProps) => {
-  return (
-    <Icon
-      src={type === "uncheck" ? uncheck_box : check_box}
-      width={"24px"}
-      height={"24px"}
-      alt="checkbox_icon"
+} & AntdIconProps) => {
+  <CheckSquareFilled {...props} />;
+
+  return type === "uncheck" ? (
+    <CheckSquareOutlined
+      style={{ ...S.CheckBoxStyle, color: "#5D5D5D" }}
       {...props}
     />
+  ) : (
+    <CheckSquareFilled style={S.CheckBoxStyle} {...props} />
   );
 };
 
@@ -95,23 +98,23 @@ const InteractionIcon = ({
   ...props
 }: {
   type: "remove" | "rollback" | "trash" | "check";
-} & IconProps) => {
+} & AntdIconProps) => {
   const switchIcon = (type: "remove" | "rollback" | "trash" | "check") => {
     switch (type) {
       case "remove":
-        return cancel;
+        return <CloseOutlined style={S.InteractionIconStyle} {...props} />;
       case "rollback":
-        return rollback;
+        return <RollbackOutlined style={S.InteractionIconStyle} {...props} />;
       case "trash":
-        return trash;
+        return <DeleteFilled style={S.InteractionIconStyle} {...props} />;
       case "check":
-        return check;
+        return <CheckOutlined style={S.InteractionIconStyle} {...props} />;
       default:
-        return "";
+        return null;
     }
   };
 
-  return <Icon src={switchIcon(type)} alt="interaction_icon" {...props} />;
+  return switchIcon(type);
 };
 
 TodoCard.Checkbox = Checkbox;
